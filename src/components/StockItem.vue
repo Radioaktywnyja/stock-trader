@@ -30,5 +30,6 @@
     .bg-green {
         background-color: #baecb3;
         border-color: #baecb3;
+        font-size: 0.7rem;
     }
 </style>

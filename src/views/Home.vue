@@ -5,7 +5,13 @@
       <p class="my-0">You may Save & Load your Data</p>
       <p class="my-0">Click on "End Day" to begin a new Day!</p>
       <hr>
-      <p class="font-weight-bold">Your Funds: $10.000</p>
+      <span class="font-weight-bold">Your Funds: $10.000</span>
     </b-card>
   </div>
 </template>
+
+<style scoped>
+  p {
+    font-size: 0.9rem;
+  }
+</style>
