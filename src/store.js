@@ -34,9 +34,9 @@ export const store = new Vuex.Store({
 
       Object.keys(state.stocks).forEach(stock => {
         if (state.stocks[stock].quantity > 0) {
-          filtered = Object.assign(filtered, {[stock]: state.stocks[stock]})
+          filtered = Object.assign(filtered, { [stock]: state.stocks[stock] });
         }
-      })
+      });
 
       return filtered;
     }
