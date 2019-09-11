@@ -47,11 +47,20 @@ export const store = new Vuex.Store({
         state.stocks[payload.name].quantity += payload.quantity;
         state.funds -= (payload.quantity * state.stocks[payload.name].price);
       }
+    },
+    sellStock: (state, payload) => {
+      if (state.stocks[payload.name].quantity >= payload.quantity) {
+        state.stocks[payload.name].quantity -= payload.quantity;
+        state.funds += payload.quantity * state.stocks[payload.name].price;
+      }
     }
   },
   actions: {
     buyStock: ({ commit }, payload) => {
       commit("buyStock", payload);
+    },
+    sellStock: ({ commit }, payload) => {
+      commit("sellStock", payload);
     }
   }
 });

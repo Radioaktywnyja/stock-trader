@@ -4,21 +4,51 @@
             <span class="h4 text-primary">{{ stockName }} </span><span>(Price: {{ stockPrice }} | Quantity: {{ stockQuantity }})</span>
         </b-card-header>
         <b-card-body class="py-2">
-            <b-form inline>
+            <b-form @submit.prevent="sell" inline>
                 <label class="sr-only" for="stock-count">Count</label>
-                <b-input id="stock-count" placeholder="Quantity" class="col-7"></b-input>
-                <b-button variant="danger" class="ml-auto">Sell</b-button>
+                <b-input id="stock-count" placeholder="Quantity" class="col-7" :value="quantityInput" @input.native="updateQuantityInput" @keypress="isNumber"></b-input>
+                <b-button variant="danger" class="ml-auto" @click.prevent="sell">Sell</b-button>
+                <b-form-invalid-feedback :state="isEnoughQuantity" class="">Not enough stocks.</b-form-invalid-feedback>
             </b-form>
         </b-card-body>
     </b-card>
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
+
     export default {
         props: {
             stockName: String,
             stockPrice: Number,
             stockQuantity: Number
+        },
+        data() {
+            return {
+                quantityInput: null
+            }
+        },
+        computed: {
+            isEnoughQuantity() {
+                return this.stockQuantity >= this.quantityInput;
+            }
+        },
+        methods: {
+            ...mapActions([
+                'sellStock'
+            ]),
+            updateQuantityInput(event) {
+                this.quantityInput = event.target.value;
+            },
+            isNumber(event) {
+                if (!/\d/.test(event.key) && event.key !== 'Enter') return event.preventDefault();
+            },
+            sell() {
+                if (this.isEnoughQuantity) {
+                    this.sellStock({name: this.stockName, quantity: parseInt(this.quantityInput)});
+                    this.quantityInput = null;
+                }
+            }
         }
     }
 </script>
