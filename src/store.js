@@ -53,6 +53,14 @@ export const store = new Vuex.Store({
         state.stocks[payload.name].quantity -= payload.quantity;
         state.funds += payload.quantity * state.stocks[payload.name].price;
       }
+    },
+    changePrices: state => {
+      Object.keys(state.stocks).forEach(stock => {
+        let curr = state.stocks[stock].price;
+        let max = Math.round(curr + (40 * curr) / 100);
+        let min = Math.round(curr - (40 * curr) / 100);
+        state.stocks[stock].price = Math.round(Math.random() * (max - min + 1)) + min;
+      });
     }
   },
   actions: {
@@ -61,6 +69,9 @@ export const store = new Vuex.Store({
     },
     sellStock: ({ commit }, payload) => {
       commit("sellStock", payload);
+    },
+    changePrices: ({ commit }) => {
+      commit("changePrices");
     }
   }
 });

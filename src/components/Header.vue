@@ -8,7 +8,7 @@
                 <b-nav-item to="/stocks" class="mx-2">Stocks</b-nav-item>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
-                <b-nav-item class="mx-2">End Day</b-nav-item>
+                <b-nav-item class="mx-2" @click="endDay">End Day</b-nav-item>
                 <b-nav-item-dropdown text="Save & Load" class="mx-2" right>
                     <b-dropdown-item>Save Data</b-dropdown-item>
                     <b-dropdown-item>Load Data</b-dropdown-item>
@@ -20,10 +20,20 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
+
     export default {
         computed: {
             funds() {
                 return this.$store.getters.localeFunds;
+            }
+        },
+        methods: {
+            ...mapActions ([
+                'changePrices'
+            ]),
+            endDay() {
+                this.changePrices()
             }
         }
     }
