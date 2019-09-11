@@ -43,7 +43,10 @@ export const store = new Vuex.Store({
   },
   mutations: {
     buyStock: (state, payload) => {
-      state.stocks[payload.name].quantity += payload.quantity;
+      if (state.funds >= (payload.quantity * state.stocks[payload.name].price)) {
+        state.stocks[payload.name].quantity += payload.quantity;
+        state.funds -= (payload.quantity * state.stocks[payload.name].price);
+      }
     }
   },
   actions: {
