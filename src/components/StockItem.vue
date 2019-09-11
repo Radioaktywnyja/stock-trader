@@ -37,14 +37,14 @@
                 'buyStock'
             ]),
             updateQuantityInput(event) {
-                this.quantityInput = parseInt(event.target.value);
+                this.quantityInput = event.target.value;
             },
             isNumber(event) {
                 if (!/\d/.test(event.key) && event.key !== 'Enter') return event.preventDefault();
             },
             buy() {
                 if (this.isEnoughMoney) {
-                    this.buyStock({name: this.stockName, quantity: this.quantityInput});
+                    this.buyStock({name: this.stockName, quantity: parseInt(this.quantityInput)});
                     this.quantityInput = null;
                 }
             }
