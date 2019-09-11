@@ -41,6 +41,14 @@ export const store = new Vuex.Store({
       return filtered;
     }
   },
-  mutations: {},
-  actions: {}
+  mutations: {
+    buyStock: (state, payload) => {
+      state.stocks.BMW.quantity += payload;
+    }
+  },
+  actions: {
+    buyStock: ({ commit }, payload) => {
+      commit("buyStock", payload);
+    }
+  }
 });
