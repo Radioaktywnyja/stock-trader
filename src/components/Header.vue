@@ -1,6 +1,6 @@
 <template>
     <b-navbar toggleable="lg" type="dark" variant="dark" class="rounded mt-2">
-        <b-navbar-brand to="/" exact="true">Stock Trader</b-navbar-brand>
+        <b-navbar-brand to="/">Stock Trader</b-navbar-brand>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
@@ -13,8 +13,18 @@
                     <b-dropdown-item>Save Data</b-dropdown-item>
                     <b-dropdown-item>Load Data</b-dropdown-item>
                 </b-nav-item-dropdown>
-                <b-nav-item class="mx-2">Funds:$10.000</b-nav-item>
+                <b-nav-item class="mx-2">Funds: ${{ funds }}</b-nav-item>
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
 </template>
+
+<script>
+    export default {
+        computed: {
+            funds() {
+                return this.$store.getters.localeFunds;
+            }
+        }
+    }
+</script>
