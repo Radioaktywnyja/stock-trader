@@ -8,6 +8,7 @@
                 <label class="sr-only" for="stock-count">Quantity</label>
                 <b-input id="stock-count" class="col-7" placeholder="Quantity" :value="quantityInput" @input.native="updateQuantityInput" @keypress="isNumber"></b-input>
                 <b-button variant="success" class="ml-auto" @click.prevent="buy">Buy</b-button>
+                <b-form-invalid-feedback :state="isEnoughMoney" class="">Not enough money.</b-form-invalid-feedback>
             </b-form>
         </b-card-body>
     </b-card>
@@ -20,6 +21,11 @@
         data() {
             return {
                 quantityInput: null
+            }
+        },
+        computed: {
+            isEnoughMoney() {
+                return this.$store.state.funds >= (this.quantityInput * this.$store.state.stocks[this.stockName].price);
             }
         },
         props: {
@@ -37,8 +43,10 @@
                 if (!/\d/.test(event.key) && event.key !== 'Enter') return event.preventDefault();
             },
             buy() {
-                this.buyStock({name: this.stockName, quantity: this.quantityInput});
-                this.quantityInput = null;
+                if (this.isEnoughMoney) {
+                    this.buyStock({name: this.stockName, quantity: this.quantityInput});
+                    this.quantityInput = null;
+                }
             }
         }
     }
