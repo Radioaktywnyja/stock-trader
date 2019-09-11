@@ -5,10 +5,20 @@
       <p class="my-0">You may Save & Load your Data</p>
       <p class="my-0">Click on "End Day" to begin a new Day!</p>
       <hr>
-      <span class="font-weight-bold">Your Funds: $10.000</span>
+      <span class="font-weight-bold">Your Funds: ${{ funds }}</span>
     </b-card>
   </div>
 </template>
+
+<script>
+    export default {
+        computed: {
+            funds() {
+                return this.$store.getters.localeFunds;
+            }
+        }
+    }
+</script>
 
 <style scoped>
   p {
