@@ -23,7 +23,8 @@ export const store = new Vuex.Store({
         price: 8,
         quantity: 0
       }
-    }
+    },
+    savedData: {}
   },
   getters: {
     localeFunds: state => {
@@ -61,6 +62,14 @@ export const store = new Vuex.Store({
         let min = Math.round(curr - (40 * curr) / 100);
         state.stocks[stock].price = Math.round(Math.random() * (max - min + 1)) + min;
       });
+    },
+    saveData: state => {
+      state.savedData.funds = state.funds;
+      state.savedData.stocks = JSON.parse(JSON.stringify(state.stocks));
+    },
+    loadData: state => {
+      state.funds = state.savedData.funds;
+      state.stocks = JSON.parse(JSON.stringify(state.savedData.stocks));
     }
   },
   actions: {
@@ -72,6 +81,12 @@ export const store = new Vuex.Store({
     },
     changePrices: ({ commit }) => {
       commit("changePrices");
+    },
+    saveData: ({ commit }) => {
+      commit("saveData");
+    },
+    loadData: ({ commit }) => {
+      commit("loadData");
     }
   }
 });

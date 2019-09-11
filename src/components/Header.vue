@@ -10,8 +10,8 @@
             <b-navbar-nav class="ml-auto">
                 <b-nav-item class="mx-2" @click="endDay">End Day</b-nav-item>
                 <b-nav-item-dropdown text="Save & Load" class="mx-2" right>
-                    <b-dropdown-item>Save Data</b-dropdown-item>
-                    <b-dropdown-item>Load Data</b-dropdown-item>
+                    <b-dropdown-item @click="saveData">Save Data</b-dropdown-item>
+                    <b-dropdown-item @click="loadData">Load Data</b-dropdown-item>
                 </b-nav-item-dropdown>
                 <b-nav-item class="mx-2">Funds: ${{ funds }}</b-nav-item>
             </b-navbar-nav>
@@ -30,7 +30,9 @@
         },
         methods: {
             ...mapActions ([
-                'changePrices'
+                'changePrices',
+                'saveData',
+                'loadData'
             ]),
             endDay() {
                 this.changePrices()
