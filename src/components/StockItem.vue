@@ -3,11 +3,11 @@
         <b-card-header class="bg-green py-1">
             <span class="h4 text-success">{{ stockName }} </span><span>(Price: {{ stockPrice }})</span>
         </b-card-header>
-        <b-card-body class="py-2">
-            <b-form @submit.prevent="buyStock(quantityInput)" inline>
+        <b-card-body class="py-2 px-2">
+            <b-form @submit.prevent="buy" inline>
                 <label class="sr-only" for="stock-count">Quantity</label>
-                <b-input id="stock-count" class="col-7" @input.native="updateQuantityInput" @keypress="isNumber"></b-input>
-                <b-button variant="success" class="ml-auto" @click.prevent="buyStock(quantityInput)">Buy</b-button>
+                <b-input id="stock-count" class="col-7" placeholder="Quantity" :value="quantityInput" @input.native="updateQuantityInput" @keypress="isNumber"></b-input>
+                <b-button variant="success" class="ml-auto" @click.prevent="buy">Buy</b-button>
             </b-form>
         </b-card-body>
     </b-card>
@@ -19,7 +19,7 @@
     export default {
         data() {
             return {
-                quantityInput: 0
+                quantityInput: null
             }
         },
         props: {
@@ -34,7 +34,11 @@
                 this.quantityInput = parseInt(event.target.value);
             },
             isNumber(event) {
-                if (!/\d/.test(event.key)) return event.preventDefault();
+                if (!/\d/.test(event.key) && event.key !== 'Enter') return event.preventDefault();
+            },
+            buy() {
+                this.buyStock({name: this.stockName, quantity: this.quantityInput});
+                this.quantityInput = null;
             }
         }
     }

@@ -43,7 +43,7 @@ export const store = new Vuex.Store({
   },
   mutations: {
     buyStock: (state, payload) => {
-      state.stocks.BMW.quantity += payload;
+      state.stocks[payload.name].quantity += payload.quantity;
     }
   },
   actions: {
